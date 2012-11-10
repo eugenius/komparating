@@ -8,7 +8,7 @@ import javax.ws.rs.Produces;
 
 /** Example resource class hosted at the URI path "/myresource"
  */
-@Path("/myresource")
+@Path("myresource")
 @Stateless
 public class MyResource {
     
