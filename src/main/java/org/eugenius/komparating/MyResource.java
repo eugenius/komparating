@@ -1,5 +1,5 @@
 
-package org.eugenius;
+package org.eugenius.komparating;
 
 import javax.ejb.Stateless;
 import javax.ws.rs.GET;
