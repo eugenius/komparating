@@ -15,16 +15,16 @@ import java.io.File;
 import java.net.URL;
 
 import static com.jayway.restassured.RestAssured.expect;
-import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.empty;
 
 /**
  * @author Eugenius
  */
 @RunWith(Arquillian.class)
 @RunAsClient
-public class MyResourceRestTest {
+public class ItemServiceRestTest {
     private static final String RESOURCE_PREFIX = JaxRsActivator.class.getAnnotation(ApplicationPath.class).value();
-    private static final String SERVICE_SUFFIX = MyResource.class.getAnnotation(Path.class).value();
+    private static final String SERVICE_SUFFIX = ItemService.class.getAnnotation(Path.class).value();
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
@@ -38,7 +38,7 @@ public class MyResourceRestTest {
     URL deploymentUrl;
 
     @Test
-    public void testGetIt() throws Exception {
-        expect().body(equalTo("Hi there!")).when().get(deploymentUrl.toString() + RESOURCE_PREFIX + "/" + SERVICE_SUFFIX);
+    public void testInitialListOfItemsIsEmpty() throws Exception {
+        expect().body("", empty()).when().get(deploymentUrl.toString() + RESOURCE_PREFIX + "/" + SERVICE_SUFFIX);
     }
 }
