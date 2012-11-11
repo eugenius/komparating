@@ -8,10 +8,24 @@
     <name>JerseyEJBArchetype Jersey Webapp</name>
 
     <properties>
-        <jersey-version>1.12</jersey-version>
-        <glassfish-version>3.1</glassfish-version>
-        <netbeans.hint.deploy.server>gfv3ee6</netbeans.hint.deploy.server>
+        <jersey.version>1.12</jersey.version>
+        <glassfish-embedded.version>3.1.2</glassfish-embedded.version>
+        <arquillan-glassfish-embedded.version>1.0.0.CR3</arquillan-glassfish-embedded.version>
+        <arquillian.version>1.0.2.Final</arquillian.version>
+        <arquillian_persistence.version>1.0.0.Alpha5</arquillian_persistence.version>
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.jboss.arquillian</groupId>
+                <artifactId>arquillian-bom</artifactId>
+                <version>${arquillian.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
         <dependency>
@@ -23,7 +37,7 @@
         <dependency>
             <groupId>com.sun.jersey</groupId>
             <artifactId>jersey-server</artifactId>
-            <version>${jersey-version}</version>
+            <version>${jersey.version}</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.jaxrs</groupId>
@@ -32,9 +46,15 @@
         </dependency>
 
         <dependency>
-            <groupId>org.glassfish.extras</groupId>
+            <groupId>org.jboss.arquillian.container</groupId>
+            <artifactId>arquillian-glassfish-embedded-3.1</artifactId>
+            <version>${arquillan-glassfish-embedded.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.main.extras</groupId>
             <artifactId>glassfish-embedded-all</artifactId>
-            <version>${glassfish-version}</version>
+            <version>${glassfish-embedded.version}</version>
             <scope>provided</scope>
         </dependency>
 
@@ -44,18 +64,25 @@
             <version>4.8.2</version>
             <scope>test</scope>
         </dependency>
+
         <dependency>
-            <groupId>org.jboss.arquillian</groupId>
-            <artifactId>arquillian-junit</artifactId>
-            <version>1.0.0.Alpha5</version>
+            <groupId>org.jboss.arquillian.junit</groupId>
+            <artifactId>arquillian-junit-container</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.jboss.arquillian.container</groupId>
-            <artifactId>arquillian-glassfish-embedded-3.1</artifactId>
-            <version>1.0.0.Alpha5</version>
+            <groupId>org.jboss.arquillian.extension</groupId>
+            <artifactId>arquillian-persistence-api</artifactId>
+            <version>${arquillian_persistence.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.jboss.arquillian.extension</groupId>
+            <artifactId>arquillian-persistence-impl</artifactId>
+            <version>${arquillian_persistence.version}</version>
+            <scope>test</scope>
+        </dependency>
+
         <dependency>
             <groupId>com.jayway.restassured</groupId>
             <artifactId>rest-assured</artifactId>
@@ -66,6 +93,13 @@
 
     <build>
         <finalName>komparating</finalName>
+
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+            </testResource>
+        </testResources>
+
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

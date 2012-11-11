@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE resources PUBLIC
+        "-//GlassFish.org//DTD GlassFish Application Server 3.1 Resource Definitions//EN"
+        "http://glassfish.org/dtds/glassfish-resources_1_5.dtd">
+<resources>
+    <jdbc-resource pool-name="KomparatingEmbeddedInMemoryDerbyPool"
+                   jndi-name="jdbc/komparating"/>
+    <jdbc-connection-pool name="KomparatingEmbeddedInMemoryDerbyPool"
+                          res-type="javax.sql.DataSource"
+                          datasource-classname="org.apache.derby.jdbc.EmbeddedDataSource"
+                          ping="true">
+        <property name="DatabaseName" value="memory:testDb"/>
+        <property name="User" value="app"/>
+        <property name="Password" value="app"/>
+        <property name="connectionAttributes" value=";create=true"/>
+    </jdbc-connection-pool>
+</resources>
